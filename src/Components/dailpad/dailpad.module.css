@@ -1,0 +1,28 @@
+.display {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    margin-top: 2rem;
+}
+
+.numbers button {
+    width: 50px;
+    height: 50px;
+    background-color: bisque;
+}
+
+.zero { 
+    width: 100px !important; 
+}
+
+.numbers td:last-child {
+    button {
+        background-color: chocolate;
+        color: #fff;
+    }
+}
+
+.numbers button:active{
+    box-shadow: inset #00000082 0px 0px 10px 0px;
+}
