@@ -4,3 +4,14 @@
     margin: 0;
     text-align: end;
 }
+
+p{
+    font-size: small;
+    margin: 0;
+}
+
+.comp{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+}
