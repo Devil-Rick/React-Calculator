@@ -1,47 +1,27 @@
 import Display from "../screen/screen"
 import styles from './dailpad.module.css'
 
+const dailkeys = [['C', '+/-', '%', '/'], [1, 2, 3, '+'], [4, 5, 6, '-'], [7, 8, 9, '*'], [0, '.', '=']];
+
 const Dailpad = () => {
     return (
         <div className={styles.display}>
             <Display />
             <div className={styles.dial}>
-                <table className={styles.numbers}>
-                    <tbody>
-                        <tr>
-                            <td><button>C</button></td>
-                            <td><button>+/-</button></td>
-                            <td><button>%</button></td>
-                            <td><button>/</button></td>
-                        </tr>
-                        <tr>
-                            <td><button>1</button></td>
-                            <td><button>2</button></td>
-                            <td><button>3</button></td>
-                            <td><button>+</button></td>
-                        </tr>
-                        <tr>
-                            <td><button>4</button></td>
-                            <td><button>5</button></td>
-                            <td><button>6</button></td>
-                            <td><button>-</button></td>
-                        </tr>
-                        <tr>
-                            <td><button>7</button></td>
-                            <td><button>8</button></td>
-                            <td><button>9</button></td>
-                            <td><button>*</button></td>
-                        </tr>
-                        <tr>
-                            <td colSpan={2}><button className={styles.zero}>0</button></td>
-                            <td><button>.</button></td>
-                            <td><button>=</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div className={styles.numbers}>
+                    {dailkeys.map((row) => (
+                        <div>
+                            {row.map((key) => {
+                                if (key === 0) {
+                                    return <button className={styles.zero}>{key}</button>
+                                }
+                                return <button>{key}</button>
+                            })}
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )
 }
-
 export default Dailpad
