@@ -5,64 +5,57 @@ import styles from './dailpad.module.css'
 const dailkeys = [['C', '+/-', '%', '/'], [1, 2, 3, '+'], [4, 5, 6, '-'], [7, 8, 9, '*'], [0, '.', '=']];
 
 let output = 0;
-let result = 0;
-let calculate = false;
+let result;
+let oper = '';
 
 const Dailpad = () => {
     const [input, setInput] = useState(0);
-    const [partial, setPartial] = useState(0);
+    const [partial, setPartial] = useState('');
     const [res, setRes] = useState(0);
 
-    const calc = (num, operation) => {
+    const calc = (cur_res, operation, num) => {
         switch (operation) {
             case '+':
-                console.log(result, operation, output);
-                result += num;
-                break;
+                result = cur_res + num;
+                return result;
             case '-':
-                console.log(result, operation, output);
-                result -= num;
-                break;
+                result = cur_res - num;
+                return result;
             case '*':
-                console.log(result, operation, output);
-                result *= num;
-                break;
+                result = cur_res * num;
+                return result;
             case '/':
-                console.log(result, operation, output);
-                result /= num;
-                break;
+                result = cur_res / num;
+                return result;
             case '%':
-                console.log(result, operation, output);
-                result = (result * num) / 100
-                break;
-            case '=':
-                return setRes(result)
+                result = cur_res % num;
+                return result;
             default:
-                return 0;
+                return num;
         }
     }
 
-//  Major Change in get Key is required
     const getkey = (key) => {
         if (!parseInt(key) && key !== 0 && key !== '.') {
-            if (typeof output === 'string') {
-                output = parseFloat(output)
-            }
             if (key === 'C') {
-                result = 0
-                calculate = false
-                setPartial(0);
+                result = undefined;
+                setPartial('');
                 setInput(0);
                 setRes(0);
             } else if (key === '+/-') {
                 console.log('Invert');
             } else {
-                if (calculate === false) {
-                    calculate = true
-                    console.log('True is set'); 
+                if (result === undefined) {
+                    result = input
+                }
+                if(key === '='){
+                    setRes(calc(result,oper, parseFloat(input)), 'result')
+                    setPartial(`${result}`);
                 }else{
-                    console.log(calc(output, key));
-                }    
+                    setPartial(`${result} ${key}`);
+                    oper = key
+                }
+                setInput(0)
             }
             output = 0;
         } else {
